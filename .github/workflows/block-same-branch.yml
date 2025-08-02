@@ -1,0 +1,21 @@
+name: Block Same-Branch PRs
+
+on:
+  pull_request:
+    branches:
+      - tests
+
+jobs:
+  prevent-same-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR source and target
+        run: |
+          echo "HEAD: ${{ github.head_ref }}"
+          echo "BASE: ${{ github.base_ref }}"
+          if [ "${{ github.head_ref }}" == "${{ github.base_ref }}" ]; then
+            echo "❌ No puedes hacer PR de la misma rama a sí misma."
+            exit 1
+          else
+            echo "✅ PR válido"
+          fi

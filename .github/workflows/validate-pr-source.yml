@@ -1,0 +1,30 @@
+name: Validate PR Source Branch
+
+on:
+  pull_request:
+    branches:
+      - main
+      - prod
+
+jobs:
+  validate-pr-origin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR source branch
+        run: |
+          echo "PR de: ${{ github.head_ref }} → ${{ github.base_ref }}"
+
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          if [[ "$BASE" == "prod" && "$HEAD" != "test" ]]; then
+            echo "❌ Solo se permiten PR a 'prod' desde 'test'."
+            exit 1
+          fi
+
+          if [[ "$BASE" == "main" && "$HEAD" != "prod" ]]; then
+            echo "❌ Solo se permiten PR a 'main' desde 'prod'."
+            exit 1
+          fi
+
+          echo "✅ PR permitido"
