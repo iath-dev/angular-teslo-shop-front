@@ -5,8 +5,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@env/*": ["src/environments/*"],
-      "@app/*": ["src/app/*"]
+      "@/*": ["src/app/*"],
+      "@admin/*": ["src/app/admin/*"],
+      "@auth/*": ["src/app/auth/*"],
+      "@products/*": ["src/app/products/*"],
+      "@store-font/*": ["src/app/store-font/*"],
+      "@shared/*": ["src/shared/*"],
+      "@env/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
